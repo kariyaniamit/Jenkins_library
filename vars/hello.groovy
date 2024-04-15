@@ -1,28 +1,5 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Build & Tag Docker Image') {
-            steps {
-                script {
-                    dir('src') {
-
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t aak11/cartservice:latest ."
-                    }
-                        }
-                }
-            }
-        }
-        
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push aak11/cartservice:latest "
-                    }
-                }
-            }
-        }
-    }
+def build(String tag,String file_name) {
+    sh """
+        docker build --build-arg file_name="${file_name}" -t "${tag}"  .
+    """
 }
