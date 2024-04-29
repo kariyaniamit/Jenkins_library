@@ -1,5 +1,5 @@
 // vars/dockerUtils.groovy
-def call(String imageName, String imageTag) {
+def buildAndPushDockerImage(String imageName, String imageTag) {
     pipeline {
         agent any
         stages {
